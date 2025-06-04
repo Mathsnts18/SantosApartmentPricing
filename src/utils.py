@@ -1,12 +1,14 @@
-import sys
 import os
 import pickle
+import sys
+
 from src.exception import CustomException
+
 
 def save_object(file_path, obj):
     """
     Save an object to a file using pickle.
-    
+
     :param file_path: Path where the object will be saved.
     :param obj: The object to be saved.
     """

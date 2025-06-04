@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "zapimoveis-santos"
+name = "SantosApartmentPricing"
 version = "0.1.0"
 description = ""
 authors = ["Matheus Santos <msantos18.ms@gmail.com>"]
@@ -20,6 +20,21 @@ mlflow = "^2.22.0"
 lightgbm = "^4.6.0"
 catboost = "^1.2.8"
 
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.12"
+
+[tool.ruff]
+line-length = 79
+extend-exclude = ['migrations']
+
+[tool.ruff.lint]
+preview = true
+select = ['I', 'F', 'E', 'W', 'PL', 'PT']
+
+[tool.ruff.format]
+preview = true
+quote-style = 'single'
 
 [build-system]
 requires = ["poetry-core"]

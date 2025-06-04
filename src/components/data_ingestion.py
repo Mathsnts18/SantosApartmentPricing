@@ -1,18 +1,21 @@
 import os
 import sys
 from dataclasses import dataclass
-from src.exception import CustomException
-from src.logger import logging
+
 import pandas as pd
 
 from src.components.data_transformation import DataTransformation
 from src.components.model_trainer import ModelTrainer
+from src.exception import CustomException
+from src.logger import logging
+
 
 @dataclass
 class DataIngestionConfig:
     train_data_path: str = os.path.join('artifacts', 'train.csv')
     test_data_path: str = os.path.join('artifacts', 'test.csv')
     raw_data_path: str = os.path.join('artifacts', 'data.csv')
+
 
 class DataIngestion:
     def __init__(self) -> None:
@@ -26,7 +29,10 @@ class DataIngestion:
             df = pd.read_json('data/raw/imoveis.json', lines=True)
             logging.info('Leitura dos dados concluída')
 
-            os.makedirs(name=os.path.dirname(p=self.ingestion_config.raw_data_path), exist_ok=True)
+            os.makedirs(
+                name=os.path.dirname(p=self.ingestion_config.raw_data_path),
+                exist_ok=True,
+            )
             df.to_csv(self.ingestion_config.raw_data_path, index=False)
 
             logging.info('Salvamento dos dados concluído')
@@ -38,6 +44,7 @@ class DataIngestion:
 
         except Exception as e:
             raise CustomException(error_message=e, error_detail=sys)
+
 
 if __name__ == '__main__':
     obj = DataIngestion()

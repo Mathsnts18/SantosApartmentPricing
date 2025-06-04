@@ -177,5 +177,5 @@ mlartifacts/
 .vscode/
 .devcontainer/
 tests/
-zapimoveis_santos/
+SantosApartmentPricing/
 catboost_info/

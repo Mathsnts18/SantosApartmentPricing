@@ -50,7 +50,7 @@ O objetivo deste projeto é justamente preencher essa lacuna, utilizando dados h
 ## 💡 Análise Exploratória
 
 
-## 💻 Instalação do projeto
+## ⚙️ Instalação do projeto
 
 **Prerequisitos**
 Antes de começar, tenha certeza que você tem instalado em sua maquina:

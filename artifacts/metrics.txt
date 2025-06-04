@@ -1,0 +1,8 @@
+{
+    "mean_absolute_error_X_train": 105613.49052328899,
+    "mean_absolute_error_X_test": 193426.71063753404,
+    "r2_score_X_train": 0.9780426756919822,
+    "r2_score_X_test": 0.8321490406611335,
+    "root_mean_squared_error_X_train": 150456.80191423517,
+    "root_mean_squared_error_X_test": 362133.02212678245
+}
