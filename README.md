@@ -47,7 +47,7 @@ Nesse contexto, um modelo preditivo pode atuar como uma ferramenta de apoio à d
 
 O objetivo deste projeto é justamente preencher essa lacuna, utilizando dados históricos de anúncios e técnicas de Machine Learning para construir um modelo robusto de avaliação automática de apartamentos em Santos.
 
-## 📌 Premissas
+## ⚠️ Premissas
 
 Este projeto foi desenvolvido com base em dados reais coletados do portal ZapImóveis, focando exclusivamente em anúncios de apartamentos localizados na cidade de Santos/SP. No entanto, algumas premissas importantes devem ser consideradas:
 1. **Preço Anunciado x Preço Real de Venda**
@@ -63,6 +63,7 @@ Este projeto foi desenvolvido com base em dados reais coletados do portal ZapIm�
     Os dados representam um recorte temporal específico e não são atualizados em tempo real. O mercado imobiliário é dinâmico e sujeito a sazonalidades, variações econômicas e políticas públicas, o que pode afetar a acurácia do modelo com o tempo.
 
 ## 💡 Análise Exploratória
+[📘 Notebook - EDA](notebooks/eda.ipynb)
 
 Após a leitura dos dados brutos, foram realizados os tratamentos necessários para realizar a análise dos dados como:
 
@@ -90,7 +91,7 @@ Após extensiva parte de tratamento, realizamos enfim a análise explorátoria d
 
 Visualizamos a distribuição dos preços dos imóveis. Essa análise ajuda a identificar a faixa de preços mais comum e a presença de valores extremos.
 
-![alt text](image.png)
+![alt text](imgs/image.png)
 
 Vêmos que mesmo utilizando a técnica de *Winsorizer* ainda permanecem muitos valores extremos. Deixaremos esses valores como estão mas iremos nos atentar as análises.
 
@@ -98,13 +99,13 @@ Vêmos que mesmo utilizando a técnica de *Winsorizer* ainda permanecem muitos v
 
 Analisamos a distribuição dos preços por metro quadrado. Essa métrica é importante para entender como o custo do espaço varia entre os imóveis.
 
-![alt text](image-1.png)
+![alt text](imgs/image-1.png)
 
 ### Bairros com mais apartamentos a venda
 
 Identificamos os bairros com maior número de imóveis disponíveis. Essa análise ajuda a entender a distribuição dos dados e a representatividade de cada bairro no dataset.
 
-![alt text](image-2.png)
+![alt text](imgs/image-2.png)
 
 Como podemos ver, alguns possuem poucas amostras disponiveis, e não podem ser considerados representativos pois podem dificultar uma comparação justa com os bairros mais bem representados. Logo irei destacar esses bairros nos próximos gráficos para representar que suas amostras são limitadas.
 
@@ -112,31 +113,31 @@ Como podemos ver, alguns possuem poucas amostras disponiveis, e não podem ser c
 
 Analisamos o valor médio dos imóveis em cada bairro. Essa análise destaca quais bairros possuem os imóveis mais caros e mais acessíveis, fornecendo insights sobre o mercado imobiliário local.
 
-![alt text](image-3.png)
+![alt text](imgs/image-3.png)
 
 ### Preço por metro quadrado por bairro
 
 Calculamos o preço médio por metro quadrado em cada bairro. Essa métrica é útil para comparar o custo-benefício de imóveis em diferentes regiões.
 
-![alt text](image-4.png)
+![alt text](imgs/image-4.png)
 
 ### Preço por suítes
 
 Exploramos como o número de suítes impacta o preço dos imóveis. Essa análise ajuda a identificar se imóveis com mais suítes possuem preços significativamente mais altos.
 
-![alt text](image-5.png)
+![alt text](imgs/image-5.png)
 
 ### Frequência de comodidades
 
 Identificamos as comodidades mais comuns nos imóveis. Essa análise ajuda a entender o que é mais valorizado pelos compradores e quais características são mais frequentes no mercado.
 
-![alt text](image-6.png)
+![alt text](imgs/image-6.png)
 
 ### Matriz de correlação
 
 A matriz de correlação nos ajuda a identificar a relação entre as variáveis numéricas do dataset. Valores próximos de 1 indicam uma forte correlação positiva, enquanto valores próximos de -1 indicam uma forte correlação negativa.
 
-![alt text](image-7.png)
+![alt text](imgs/image-7.png)
 
 Essa análise nos mostra que temos valores que impactam positivamente a variável target `nrPreco`, como a quantidade de banheiros do imóvel (`nrBanheiros`),o tamanho do imóvel (`nrTamanho(m2)`) e a quantidade de vagas (`nrVagas`). Porém, é necessario ter atenção a variáveis que possuem multicolinearidade como `condominio` x `nrTamanho(m2)`, `nrTamanho(m2)` x `nrQuartos` e `nrTamanho(m2)` x `nrBanheiros`.
 
@@ -144,7 +145,7 @@ Essa análise nos mostra que temos valores que impactam positivamente a variáve
 
 Uma maneira mais eficaz de avaliar a associação entre as variáveis e uma resposta categórica é por meio do teste F ANOVA. Esse teste estatístico mede a variabilidade entre os grupos em relação à variabilidade dentro dos próprios grupos, permitindo identificar quais características possuem maior impacto na variável alvo. Dessa forma, conseguimos selecionar as features mais relevantes para a modelagem, melhorando a performance do modelo e reduzindo a dimensionalidade dos dados.
 
-![alt text](image-8.png)
+![alt text](imgs/image-8.png)
 
 
 ## ⚙️ Instalação do projeto
