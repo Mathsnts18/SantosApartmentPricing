@@ -185,7 +185,6 @@ Após entender os dados e realizar a etapa de tratamento e exploração, passei 
    
    Já o **MAE**, por tratar todos os erros de forma linear e não amplificar outliers, fornece uma visão mais realista e robusta da performance preditiva na maioria dos casos. Para um caso de uso como este — estimar o valor anunciado de imóveis, onde erros muito grandes podem ocorrer mas não devem dominar a métrica — o MAE se mostrou mais confiável e interpretável.
 
-
 5. **Validação e Monitoramento**
    - Empreguei validação cruzada K-Fold (5-fold) para garantir a robustez do modelo.
    - Utilizei o MLflow para rastreamento automático de experimentos, armazenando:
@@ -196,9 +195,10 @@ Após entender os dados e realizar a etapa de tratamento e exploração, passei 
 
 6. **Modelo Final**
 
-    O modelo CatBoostRegressor, encapsulado dentro de um pipeline completo de pré-processamento e seleção de variáveis, apresentou o melhor equilíbrio entre desempenho e generalização.
+    O modelo LightGBM, encapsulado dentro de um pipeline completo de pré-processamento e seleção de variáveis, apresentou o melhor equilíbrio entre desempenho e generalização.
 
-    Utilizando validação cruzada com 5 folds, o modelo obteve um **MAE** médio de **R$ 144.780,41**, demonstrando estabilidade durante o treinamento. Já no conjunto de teste — composto por dados completamente não vistos — o erro absoluto médio foi de **R$ 152.156,70**, indicando baixa variância entre treino e teste e confirmando a capacidade do modelo de generalizar para novos dados.
+    Utilizando validação cruzada com 5 folds, o modelo obteve um **MAE** médio de **R$ 133.062,12**, demonstrando estabilidade durante o treinamento. Já no conjunto de teste — composto por dados completamente não vistos — o erro absoluto médio foi de **R$ 127.045,70**, indicando baixa variância entre treino e teste e confirmando a capacidade do modelo de generalizar para novos dados.
+
 
 ## ⚙️ Instalação do projeto
 
