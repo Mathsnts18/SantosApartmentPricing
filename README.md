@@ -147,10 +147,62 @@ Uma maneira mais eficaz de avaliar a associação entre as variáveis e uma resp
 
 ![alt text](imgs/image-8.png)
 
+## 🤖 Modelagem Preditiva
+
+Após entender os dados e realizar a etapa de tratamento e exploração, passei para a fase de construção do modelo preditivo. Essa etapa seguiu uma estrutura clara e modular, com foco na reprodutibilidade e na robustez estatística.
+
+1. **Separação entre treino e teste**  
+   Dividi a base de dados em treino (70%) e teste (30%) utilizando a função `train_test_split`. Essa divisão permite avaliar o desempenho real do modelo em dados nunca vistos.
+
+2. **Pipeline de Preparação**  
+    Utilizei um Pipeline do Scikit-Learn para encadear todas as etapas de transformação dos dados antes do treinamento do modelo. Isso garante consistência entre os dados de treino e teste, evita data leakage e facilita a replicação do projeto.
+
+| Etapa            |Descrição                                                                                                      |
+| ---------------- | -------------------------------------------------------------------------------------------------------------- |
+| `Winsorizer`     | Tratamento de outliers com base no desvio absoluto da mediana (MAD), reduzindo o impacto de valores extremos.  |
+| `OneHotEncoder`  | Codificação de variáveis categóricas, transformando-as em dummies para uso nos modelos.                        |
+| `NewFeats`    | Criação de novas variáveis como número total de comodidades e indicadores binários para categorias.            |
+| `RFE`            | Seleção das variáveis mais relevantes usando o método de eliminação recursiva (Recursive Feature Elimination). |
+| `StandardScaler` | Padronização das variáveis numéricas para média 0 e desvio padrão 1, útil para modelos sensíveis à escala.     |
+
+
+3. **Modelos Avaliados**  
+   Testei diferentes algoritmos de regressão, sempre utilizando validação cruzada para avaliar sua performance:
+
+   - Regressão Linear
+   - Random Forest
+   - LightGBM
+   - CatBoost Regressor (modelo final)
+
+4. **Métricas de Avaliação**
+   Utilizei as seguintes métricas:
+
+   - **RMSE (Root Mean Squared Error)**: penaliza mais os grandes erros.
+   - **MAE (Mean Absolute Error)**: interpretação direta do erro médio absoluto.
+   - **R² Score**: proporção da variância explicada pelo modelo.
+
+   O **RMSE**, apesar de ser uma métrica muito utilizada, é extremamente sensível a outlies, já que eleva ao quadrado os erros. Isso significa que uma única previsão com grande erro pode distorcer drasticamente o RMSE e mascarar o desempenho geral do modelo.
+   
+   Já o **MAE**, por tratar todos os erros de forma linear e não amplificar outliers, fornece uma visão mais realista e robusta da performance preditiva na maioria dos casos. Para um caso de uso como este — estimar o valor anunciado de imóveis, onde erros muito grandes podem ocorrer mas não devem dominar a métrica — o MAE se mostrou mais confiável e interpretável.
+
+
+5. **Validação e Monitoramento**
+   - Empreguei validação cruzada K-Fold (5-fold) para garantir a robustez do modelo.
+   - Utilizei o MLflow para rastreamento automático de experimentos, armazenando:
+
+        - Parâmetros dos modelos
+        - Métricas de desempenho
+        - Gráficos
+
+6. **Modelo Final**
+
+    O modelo CatBoostRegressor, encapsulado dentro de um pipeline completo de pré-processamento e seleção de variáveis, apresentou o melhor equilíbrio entre desempenho e generalização.
+
+    Utilizando validação cruzada com 5 folds, o modelo obteve um **MAE** médio de **R$ 144.780,41**, demonstrando estabilidade durante o treinamento. Já no conjunto de teste — composto por dados completamente não vistos — o erro absoluto médio foi de **R$ 152.156,70**, indicando baixa variância entre treino e teste e confirmando a capacidade do modelo de generalizar para novos dados.
 
 ## ⚙️ Instalação do projeto
 
-**Prerequisitos**
+**Pré-requisitos**:
 Antes de começar, tenha certeza que você tem instalado em sua maquina:
 
 - Python 3.10
