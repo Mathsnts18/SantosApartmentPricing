@@ -172,7 +172,7 @@ Após entender os dados e realizar a etapa de tratamento e exploração, passei 
    - Regressão Linear
    - Random Forest
    - LightGBM
-   - CatBoost Regressor (modelo final)
+   - CatBoost
 
 4. **Métricas de Avaliação**
    Utilizei as seguintes métricas:

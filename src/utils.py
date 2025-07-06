@@ -4,7 +4,7 @@ import sys
 
 from src.exception import CustomException
 
-
+    
 def save_object(file_path, obj):
     """
     Save an object to a file using pickle.

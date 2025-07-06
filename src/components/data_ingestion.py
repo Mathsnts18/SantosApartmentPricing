@@ -12,9 +12,7 @@ from src.logger import logging
 
 @dataclass
 class DataIngestionConfig:
-    train_data_path: str = os.path.join('artifacts', 'train.csv')
-    test_data_path: str = os.path.join('artifacts', 'test.csv')
-    raw_data_path: str = os.path.join('artifacts', 'data.csv')
+    raw_data_path: str = os.path.join('data/raw', 'data.csv')
 
 
 class DataIngestion:
@@ -51,8 +49,8 @@ if __name__ == '__main__':
     raw_data = obj.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(raw_data)
-    train_df, test_df = data_transformation.feature_selection()
+    train_df, test_df = data_transformation.initiate_data_transformation(raw_data)
 
     model_trainer = ModelTrainer()
     model_trainer.initiate_model_trainer(train_df, test_df)
+    model_trainer.save_model()
