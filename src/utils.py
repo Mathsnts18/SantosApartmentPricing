@@ -2,9 +2,11 @@ import os
 import pickle
 import sys
 
+import dill
+
 from src.exception import CustomException
 
-    
+
 def save_object(file_path, obj):
     """
     Save an object to a file using pickle.
@@ -18,5 +20,14 @@ def save_object(file_path, obj):
 
         with open(file_path, 'wb') as file:
             pickle.dump(obj, file)
+    except Exception as e:
+        raise CustomException(error_message=e, error_detail=sys)
+
+
+def load_object(file_path):
+    try:
+        with open(file_path, 'rb') as file_obj:
+            return dill.load(file_obj)
+
     except Exception as e:
         raise CustomException(error_message=e, error_detail=sys)

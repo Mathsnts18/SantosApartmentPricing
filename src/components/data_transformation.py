@@ -3,11 +3,10 @@ import re
 import sys
 from dataclasses import dataclass
 
-import numpy as np
 import pandas as pd
+from feature_engine.outliers import Winsorizer
 from sklearn.base import BaseEstimator, TransformerMixin
 from sklearn.model_selection import train_test_split
-from feature_engine.outliers import Winsorizer
 
 from src.exception import CustomException
 from src.logger import logging
@@ -23,18 +22,25 @@ class DataTransformationConfig:
     processed_train_path: str = os.path.join(
         'data/processed', 'train_processed.csv'
     )
-    processed_test_path: str = os.path.join('data/processed', 'test_processed.csv')
+    processed_test_path: str = os.path.join(
+        'data/processed', 'test_processed.csv'
+    )
+
 
 class DataProcessor(BaseEstimator, TransformerMixin):
-
     def fit(self, X, y=None):
         return self
 
     def transform(self, X):
-
         pd.set_option('future.no_silent_downcasting', True)
 
-        remove_columns = ['codigo_zapimoveis', 'dtCriacao', 'codigo_anunciante', 'imobiliaria', 'dtColeta']
+        remove_columns = [
+            'codigo_zapimoveis',
+            'dtCriacao',
+            'codigo_anunciante',
+            'imobiliaria',
+            'dtColeta',
+        ]
 
         X = X.drop(remove_columns, axis=1)
 
@@ -54,18 +60,18 @@ class DataProcessor(BaseEstimator, TransformerMixin):
 
         X.fillna(0, inplace=True)
         X.replace('', 0, inplace=True)
-    
+
         int_cols = [
-                'nrPreco',
-                'nrCondominio',
-                'nrIptu',
-                'nrArea(m2)',
-                'nrQuartos',
-                'nrBanheiros',
-                'nrVagas',
-                'nrAndar',
-                'nrSuites',
-            ]
+            'nrPreco',
+            'nrCondominio',
+            'nrIptu',
+            'nrArea(m2)',
+            'nrQuartos',
+            'nrBanheiros',
+            'nrVagas',
+            'nrAndar',
+            'nrSuites',
+        ]
 
         for col in int_cols:
             X[col] = X[col].replace(r'[^\d]', '', regex=True)
@@ -74,7 +80,7 @@ class DataProcessor(BaseEstimator, TransformerMixin):
             X[col] = X[col].astype(int)
 
         endereco_series = X['endereco']
-        
+
         def extract_bairro(endereco):
             match = re.search(r' -\s*([^,]+),', endereco)
             if match:
@@ -92,13 +98,14 @@ class DataProcessor(BaseEstimator, TransformerMixin):
             'ap 22 - Boqueirão': 'Boqueirão',
             'apto 127 - Marapé': 'Marapé',
             '57 - Boqueirão': 'Boqueirão',
-            '91 - Campo Grande': 'Campo Grande'       
+            '91 - Campo Grande': 'Campo Grande',
         })
         X.drop(columns=['endereco'], inplace=True)
-        
+
         X.drop_duplicates(inplace=True)
 
         return X.reset_index(drop=True)
+
 
 class DataTransformation:
     def __init__(self):
@@ -124,9 +131,15 @@ class DataTransformation:
                 abt, test_size=0.3, random_state=42
             )
 
-            logging.info('Aplicando o Winsorizer no método MAD nos conjuntos de treino e teste')
+            logging.info(
+                'Aplicando o Winsorizer no método MAD nos conjuntos de treino e teste'
+            )
 
-            winsor = Winsorizer(capping_method='mad', tail='both', variables=['nrPreco', 'nrCondominio', 'nrIptu', 'nrArea(m2)'])
+            winsor = Winsorizer(
+                capping_method='mad',
+                tail='both',
+                variables=['nrPreco', 'nrCondominio', 'nrIptu', 'nrArea(m2)'],
+            )
 
             train_df = winsor.fit_transform(train_df)
             test_df = winsor.transform(test_df)
