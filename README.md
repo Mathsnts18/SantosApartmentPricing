@@ -267,7 +267,7 @@ Quando terminar de ver o projeto, desative o ambiente virtual
 deactivate
 ```
 
-## Contato
+## 💬 Contato
 
 Portfólio: https://www.matheussantos.com.br/
 
