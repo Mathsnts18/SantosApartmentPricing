@@ -1,6 +1,6 @@
-# 🏠 Predição de Preços de Apartamentos em Santos [EM ANDAMENTO]
+# 🏠 Predição de Preços de Apartamentos em Santos
 
-🖼️🚧*Em Andamento*🚧🖼️
+![alt text](imgs/SantosApartmentPricing-hero.png)
 
 
 |               |             |
@@ -9,6 +9,7 @@
 | Modelo        | Precificação    |
 | Linguagem    | Python    |
 | EDA | [Notebook](notebooks/eda.ipynb) |
+| App | [StreamLit](https://santosapartmentpricing.streamlit.app/) |
 
 ## 📌 Visão geral 
 Esse projeto teve como objetivo analisar o panorama geral dos apartamentos de Santos/SP e criar um modelo preditivo de preços. Foram utilizadas técnicas de análise de dados e Machine Learning para extrair insights, identificar padrões de mercado e construir um modelo capaz de prever o valor de imóveis com base em suas características.
@@ -195,9 +196,9 @@ Após entender os dados e realizar a etapa de tratamento e exploração, passei 
 
 6. **Modelo Final**
 
-    O modelo LightGBM, encapsulado dentro de um pipeline completo de pré-processamento e seleção de variáveis, apresentou o melhor equilíbrio entre desempenho e generalização.
+    O modelo CatBoostRegressor, encapsulado dentro de um pipeline completo de pré-processamento e seleção de variáveis, apresentou o melhor equilíbrio entre desempenho e generalização.
 
-    Utilizando validação cruzada com 5 folds, o modelo obteve um **MAE** médio de **R$ 133.062,12**, demonstrando estabilidade durante o treinamento. Já no conjunto de teste — composto por dados completamente não vistos — o erro absoluto médio foi de **R$ 127.045,70**, indicando baixa variância entre treino e teste e confirmando a capacidade do modelo de generalizar para novos dados.
+    Utilizando validação cruzada com 5 folds, o modelo obteve um **MAE** médio de **R$ 160.711,91**, demonstrando estabilidade durante o treinamento. Já no conjunto de teste — composto por dados completamente não vistos — o erro absoluto médio foi de **R$ 163.833,85**, indicando baixa variância entre treino e teste e confirmando a capacidade do modelo de generalizar para novos dados.
 
 
 ## ⚙️ Instalação do projeto
@@ -239,7 +240,7 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-<!-- 5. Instale as dependências
+5. Instale as dependências
 
 Use o pip para instalar as dependências listadas no requirements.txt
 
@@ -264,7 +265,7 @@ Quando terminar de ver o projeto, desative o ambiente virtual
 
 ```
 deactivate
-``` -->
+```
 
 ## Contato
 

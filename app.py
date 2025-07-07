@@ -10,20 +10,32 @@ model = load_object(file_path=model_path)
 scaler_path = 'artifacts/scaler.pkl'
 scaler = load_object(file_path=scaler_path)
 
+# ----- PAGE CONFIG -----
+st.set_page_config(
+    page_title='Santos Apartment Pricing Prediction',
+    page_icon='🏠',
+    layout='wide'
+)
+
 # ----- PAGE -----
 
 st.title("""🏠 Santos Apartment Pricing Prediction""")
 
-st.header('Previsão de Preços de Apartamentos')
+st.header('Previsão de Preços de Apartamentos de Santos')
 
-iptu = st.number_input('Qual o valor do IPTU?', min_value=0, step=1, value=0)
-condominio = st.number_input(
-    'Qual o valor do condomínio?', min_value=0, step=1, value=0
-)
-area = st.number_input(
-    'Qual a área do apartamento (m²)?', min_value=0, step=1, value=0
-)
-banheiro = st.number_input('Quantos banheiros?', min_value=0, step=1, value=0)
+col1, col2 = st.columns(2)
+
+with col1:
+    iptu = st.number_input('Qual o valor do IPTU?', min_value=0, step=1, value=0)
+    condominio = st.number_input(
+        'Qual o valor do condomínio?', min_value=0, step=1, value=0
+    )
+
+with col2:
+    area = st.number_input(
+        'Qual a área do apartamento (m²)?', min_value=0, step=1, value=0
+    )
+    banheiro = st.number_input('Quantos banheiros?', min_value=0, step=1, value=0)
 
 input_features = {
     'nrIptu': iptu,
